@@ -18,9 +18,9 @@ class ContactAdapter(var ContactList:List<ContactData>) : RecyclerView.Adapter<C
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
         var currentContact =ContactList.get(position)
         var  binding=holder.binding
-        binding.tvDisplayName.text=currentContact.toString()
-        binding.tvNumber.text=currentContact.toString()
-        binding.tvEmail.text =currentContact.toString()
+        binding.tvDisplayName.text=currentContact.displayName
+        binding.tvNumber.text=currentContact.phoneNumber
+        binding.tvEmail.text =currentContact.email
     }
 }
 class ContactViewHolder( var binding:ContactListItemBinding):ViewHolder(binding.root)
