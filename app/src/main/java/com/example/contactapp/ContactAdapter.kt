@@ -35,8 +35,8 @@ class ContactAdapter(var ContactList:List<ContactData>) : RecyclerView.Adapter<C
         Picasso
             .get()
             .load(currentContact.image)
-            .resize(80,80)
-            .centerCrop()
+//            .resize(80,80)
+//            .centerCrop()
             .transform(CropCircleTransformation())
             .into(binding.ivAvatar)
 
