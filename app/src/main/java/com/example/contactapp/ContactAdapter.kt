@@ -1,17 +1,19 @@
 package com.example.contactapp
 
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.contactapp.databinding.ContactListItemBinding
+import com.example.contactapp.model.ContactData
+import com.example.contactapp.ui.ContactDetailsActivity
 import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.CropCircleTransformation
 
-class ContactAdapter(var ContactList:List<ContactData>) : RecyclerView.Adapter<ContactViewHolder>(){
+class ContactAdapter(var ContactList:List<ContactData>, var context: Context) : RecyclerView.Adapter<ContactViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
         val binding =
             ContactListItemBinding .inflate(LayoutInflater.from(parent.context),parent ,false)
@@ -28,19 +30,21 @@ class ContactAdapter(var ContactList:List<ContactData>) : RecyclerView.Adapter<C
         binding.tvNumber.text=currentContact.phoneNumber
         binding.tvEmail.text =currentContact.email
 
-        binding.tvbutton.setOnClickListener {
-            val intent = Intent(holder.itemView.context, MainActivity2::class.java)
-            holder.itemView.context.startActivity(intent)
-        }
-        Picasso
-            .get()
-            .load(currentContact.image)
-//            .resize(80,80)
-//            .centerCrop()
-            .transform(CropCircleTransformation())
-            .into(binding.ivAvatar)
 
+        if (currentContact.image.isNotEmpty()) {
+            Picasso
+                .get()
+                .load(currentContact.image)
+                .transform(CropCircleTransformation())
+                .into(binding.ivAvatar)
+        }
+        binding.cvContact.setOnClickListener{
+            val intent=Intent(context, ContactDetailsActivity::class.java)
+            intent.putExtra("CONTACT_ID",currentContact.contactId)
+            context.startActivity(intent)
+        }
 
     }
+
 }
 class ContactViewHolder( var binding:ContactListItemBinding):ViewHolder(binding.root)
