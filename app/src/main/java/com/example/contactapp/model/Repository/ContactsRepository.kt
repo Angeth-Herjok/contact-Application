@@ -1,5 +1,6 @@
 package com.example.contactapp.model.Repository
 
+import android.provider.ContactsContract
 import android.provider.ContactsContract.Contacts
 import androidx.lifecycle.LiveData
 import com.example.contactapp.MyContactsApp
@@ -19,5 +20,10 @@ class ContactsRepository {
 
     fun getAllContacts():LiveData<List<ContactData>>{
         return database.getContactDao().getAllContacts()
+    }
+
+    fun getContactById(contactId: Int): LiveData<ContactsContract.Contacts> {
+        return database.getContactDao().getContactById(contactId)
+
     }
 }

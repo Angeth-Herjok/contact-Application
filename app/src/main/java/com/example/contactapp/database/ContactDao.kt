@@ -1,5 +1,6 @@
 package com.example.contactapp.database
 
+import android.provider.ContactsContract.Contacts
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
@@ -14,4 +15,7 @@ interface ContactDao {
 
     @Query("SELECT * FROM Contacts ORDER BY displayName")
     fun getAllContacts():LiveData<List<ContactData>>
+
+    @Query("SELECT * FROM Contacts WHERE contactId = :contactId")
+    fun getContactById(contactId: Int): LiveData<Contacts>
 }
